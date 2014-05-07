@@ -17,7 +17,7 @@ end
 ActiveRecord::Associations::AssociationScope.prepend AssociationScopeExtension
 
 module ActiveModel
-  module Association
+  module Associations
     extend ActiveSupport::Concern
 
     include AutosaveAssociation

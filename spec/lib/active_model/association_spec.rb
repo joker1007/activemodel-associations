@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe ActiveModel::Association do
+describe ActiveModel::Associations do
   context "When included Comment class" do
     class Comment
       include ActiveModel::Model
-      include ActiveModel::Association
+      include ActiveModel::Associations
 
       attr_accessor :body, :user_id
 
@@ -99,7 +99,7 @@ describe ActiveModel::Association do
     describe "has_many" do
       class Group
         include ActiveModel::Model
-        include ActiveModel::Association
+        include ActiveModel::Associations
 
         attr_accessor :name
         attr_reader :user_ids

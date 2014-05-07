@@ -1,5 +1,5 @@
 module ActiveModel
-  module Association
+  module Associations
     VERSION = "0.0.1"
   end
 end

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'activemodel/association/version'
+require 'activemodel/associations/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "activemodel-association"
-  spec.version       = ActiveModel::Association::VERSION
+  spec.name          = "activemodel-associations"
+  spec.version       = ActiveModel::Associations::VERSION
   spec.authors       = ["joker1007"]
   spec.email         = ["kakyoin.hierophant@gmail.com"]
   spec.summary       = %q{ActiveRecord Association Helper for PORO}
