@@ -6,7 +6,7 @@ module ActiveModel
 
     included do
       extend ActiveModel::Callbacks
-      define_model_callbacks :save
+      define_model_callbacks :save, :create, :update
     end
   end
 end

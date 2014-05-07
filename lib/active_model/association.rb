@@ -1,5 +1,20 @@
 require 'active_model/active_record_reflection'
 require 'active_model/autosave_association'
+require 'active_record/associations/builder/has_many_for_active_model'
+require 'active_record/associations/has_many_for_active_model_association'
+
+module AssociationScopeExtension
+  def add_constraints(scope, owner, assoc_klass, refl, tracker)
+    if refl.options[:active_model]
+      target_ids = refl.options[:target_ids]
+      return scope.where(id: owner[target_ids])
+    end
+
+    super
+  end
+end
+
+ActiveRecord::Associations::AssociationScope.prepend AssociationScopeExtension
 
 module ActiveModel
   module Association
@@ -25,6 +40,24 @@ module ActiveModel
       def belongs_to(name, scope = nil, options = {})
         reflection = ActiveRecord::Associations::Builder::BelongsTo.build(self, name, scope, options)
         ActiveRecord::Reflection.add_reflection self, name, reflection
+      end
+
+      def has_many(name, scope = nil, options = {}, &extension)
+        options.reverse_merge!(target_ids: "#{name.to_s.singularize}_ids")
+        options.merge!(active_model: true)
+
+        reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
+        ActiveRecord::Reflection.add_reflection self, name, reflection
+
+        mixin = generated_association_methods
+        mixin.class_eval <<-CODE, __FILE__, __LINE__ + 1
+          def #{options[:target_ids]}=(other_ids)
+            @#{options[:target_ids]} = other_ids
+            association(:#{name}).reset
+            association(:#{name}).reset_scope
+            @#{options[:target_ids]}
+          end
+        CODE
       end
 
       def generated_association_methods
@@ -58,7 +91,11 @@ module ActiveModel
 
       if association.nil?
         reflection  = self.class.reflect_on_association(name)
-        association = reflection.association_class.new(self, reflection)
+        if reflection.options[:active_model]
+          association = ActiveRecord::Associations::HasManyForActiveModelAssociation.new(self, reflection)
+        else
+          association = reflection.association_class.new(self, reflection)
+        end
         association_instance_set(name, association)
       end
 
