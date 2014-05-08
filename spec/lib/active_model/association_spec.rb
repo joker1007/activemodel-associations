@@ -172,6 +172,18 @@ describe ActiveModel::Associations do
           end
         end
 
+        it "can define different class_name association" do
+          class DiffClassNameHasManyGroup < Group
+            attr_reader :member_ids
+            has_many :members, class_name: "User"
+          end
+
+          user = User.create(name: "joker1007")
+          group = DiffClassNameHasManyGroup.new(members: [user])
+          expect(group.member_ids).to eq [user.id]
+          expect(group.members).to eq [user]
+        end
+
         %i(through dependent source source_type counter_cache as).each do |option_name|
           it "#{option_name} option is unsupported" do
             expect {
