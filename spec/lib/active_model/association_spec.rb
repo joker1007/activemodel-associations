@@ -51,6 +51,10 @@ describe ActiveModel::Associations do
             expect { comment.user = other_user }.to change { [comment.user, comment.user_id] }
               .from([user, user.id]).to([other_user, other_user.id])
           end
+
+          it "can validate" do
+            expect(comment.valid?).to be_true
+          end
         end
 
         describe "defined builder" do
@@ -158,6 +162,10 @@ describe ActiveModel::Associations do
             user3 = User.create(name: "jotaro")
             group.users << user3
             expect(group.users).to eq [user1, user2, user3]
+          end
+
+          it "can validate" do
+            expect(group.valid?).to be_true
           end
         end
 

@@ -1,6 +1,7 @@
 require 'active_model/associations/initialize_extension'
 require 'active_model/associations/active_record_reflection'
 require 'active_model/associations/autosave_association'
+require 'active_model/associations/override_methods'
 require 'active_record/associations/builder/has_many_for_active_model'
 require 'active_record/associations/has_many_for_active_model_association'
 
@@ -11,17 +12,7 @@ module ActiveModel
     include InitializeExtension
     include AutosaveAssociation
     include ActiveRecordReflection
-
-    included do
-      # borrow method definition from ActiveRecord::Inheritance
-      # use in Rails internal
-      mod = Module.new do
-        unbound = ActiveRecord::Inheritance::ClassMethods.instance_method(:compute_type)
-        define_method(:compute_type, unbound)
-        protected :compute_type
-      end
-      extend mod
-    end
+    include OverrideMethods
 
     module ClassMethods
       # define association like ActiveRecord
@@ -55,54 +46,6 @@ module ActiveModel
           end
         CODE
       end
-
-      def generated_association_methods
-        @generated_association_methods ||= begin
-          mod = const_set(:GeneratedAssociationMethods, Module.new)
-          include mod
-          mod
-        end
-      end
-      alias :generated_feature_methods :generated_association_methods # for ActiveRecord-4.0.x
-
-      # override
-      def dangerous_attribute_method?(name)
-        false
-      end
-
-      # dummy table name
-      def pluralize_table_names
-        self.to_s.pluralize
-      end
-    end
-
-    # use by association accessor
-    def association(name) #:nodoc:
-      association = association_instance_get(name)
-
-      if association.nil?
-        reflection  = self.class.reflect_on_association(name)
-        if reflection.options[:active_model]
-          association = ActiveRecord::Associations::HasManyForActiveModelAssociation.new(self, reflection)
-        else
-          association = reflection.association_class.new(self, reflection)
-        end
-        association_instance_set(name, association)
-      end
-
-      association
-    end
-
-    private
-
-    # use in Rails internal
-    def association_instance_get(name)
-      @association_cache[name]
-    end
-
-    # use in Rails internal
-    def association_instance_set(name, association)
-      @association_cache[name] = association
     end
   end
 end
