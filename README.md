@@ -1,4 +1,4 @@
-# Activemodel::Association
+# Activemodel::Associations
 [![Build Status](https://travis-ci.org/joker1007/activemodel-associations.svg?branch=master)](https://travis-ci.org/joker1007/activemodel-associations)
 [![Coverage Status](https://coveralls.io/repos/joker1007/activemodel-associations/badge.png)](https://coveralls.io/r/joker1007/activemodel-associations)
 
