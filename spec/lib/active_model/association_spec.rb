@@ -172,6 +172,17 @@ describe ActiveModel::Associations do
           end
         end
 
+        context "When ids attribute is nil" do
+          let!(:user) { User.create(name: "joker1007") }
+          let(:group) { Group.new }
+
+          it "can concat" do
+            expect(group.users).to be_empty
+            group.users << user
+            expect(group.users).to eq [user]
+          end
+        end
+
         it "can define different class_name association" do
           class DiffClassNameHasManyGroup < Group
             attr_reader :member_ids

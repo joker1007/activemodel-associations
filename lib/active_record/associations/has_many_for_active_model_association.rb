@@ -22,6 +22,7 @@ module ActiveRecord::Associations
       flatten_records = records.flatten
       flatten_records.each { |val| raise_on_type_mismatch!(val) }
       target_ids = reflection.options[:target_ids]
+      owner[target_ids] ||= []
       owner[target_ids].concat(flatten_records.map(&:id))
       reset
       reset_scope
