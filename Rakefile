@@ -9,7 +9,7 @@ namespace :spec do
   %w(activerecord-40 activerecord-41).each do |gemfile|
     desc "Run Tests by #{gemfile}.gemfile"
     task gemfile do
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle install --path .bundle --quiet"
+      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle install --path .bundle"
       sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle exec rake -t spec"
     end
   end
