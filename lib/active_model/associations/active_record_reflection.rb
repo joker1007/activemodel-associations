@@ -1,4 +1,4 @@
-module ActiveModel
+module ActiveModel::Associations
   module ActiveRecordReflection
     extend ActiveSupport::Concern
 

@@ -1,5 +1,5 @@
-require 'active_model/active_record_reflection'
-require 'active_model/autosave_association'
+require 'active_model/associations/active_record_reflection'
+require 'active_model/associations/autosave_association'
 require 'active_record/associations/builder/has_many_for_active_model'
 require 'active_record/associations/has_many_for_active_model_association'
 

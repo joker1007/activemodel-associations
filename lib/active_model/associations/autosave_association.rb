@@ -1,4 +1,4 @@
-module ActiveModel
+module ActiveModel::Associations
   module AutosaveAssociation
     extend ActiveSupport::Concern
 
