@@ -32,6 +32,10 @@ module ActiveModel
       # define association like ActiveRecord
       def has_many(name, scope = nil, options = {}, &extension)
         options.reverse_merge!(active_model: true, target_ids: "#{name.to_s.singularize}_ids")
+        if scope.is_a?(Hash)
+          options.merge!(scope)
+          scope = nil
+        end
 
         reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
         ActiveRecord::Reflection.add_reflection self, name, reflection

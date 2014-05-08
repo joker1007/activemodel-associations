@@ -171,6 +171,21 @@ describe ActiveModel::Associations do
             expect(group.users).to eq [user]
           end
         end
+
+        %i(through dependent source source_type counter_cache as).each do |option_name|
+          it "#{option_name} option is unsupported" do
+            expect {
+              eval <<-CODE
+                class #{option_name.to_s.classify}Group
+                  include ActiveModel::Model
+                  include ActiveModel::Associations
+
+                  has_many :users, #{option_name}: true
+                end
+              CODE
+            }.to raise_error(ArgumentError)
+          end
+        end
       end
     end
   end
