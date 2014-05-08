@@ -26,7 +26,9 @@ module ActiveModel
       # define association like ActiveRecord
       def belongs_to(name, scope = nil, options = {})
         reflection = ActiveRecord::Associations::Builder::BelongsTo.build(self, name, scope, options)
-        ActiveRecord::Reflection.add_reflection self, name, reflection
+        if ActiveRecord.version.to_s >= "4.1"
+          ActiveRecord::Reflection.add_reflection self, name, reflection
+        end
       end
 
       # define association like ActiveRecord
@@ -38,7 +40,9 @@ module ActiveModel
         end
 
         reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
-        ActiveRecord::Reflection.add_reflection self, name, reflection
+        if ActiveRecord.version.to_s >= "4.1"
+          ActiveRecord::Reflection.add_reflection self, name, reflection
+        end
 
         mixin = generated_association_methods
         mixin.class_eval <<-CODE, __FILE__, __LINE__ + 1
@@ -58,6 +62,7 @@ module ActiveModel
           mod
         end
       end
+      alias :generated_feature_methods :generated_association_methods # for ActiveRecord-4.0.x
 
       # override
       def dangerous_attribute_method?(name)
