@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'activemodel/associations'
+ActiveModel::Associations::Hooks.init
 
 ActiveRecord::Base.establish_connection(
   adapter: "sqlite3",
