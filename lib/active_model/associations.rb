@@ -17,7 +17,8 @@ module ActiveModel
       # use in Rails internal
       mod = Module.new do
         unbound = ActiveRecord::Inheritance::ClassMethods.instance_method(:compute_type)
-        protected define_method(:compute_type, unbound)
+        define_method(:compute_type, unbound)
+        protected :compute_type
       end
       extend mod
     end
