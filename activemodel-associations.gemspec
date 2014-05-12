@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = ActiveModel::Associations::VERSION
   spec.authors       = ["joker1007"]
   spec.email         = ["kakyoin.hierophant@gmail.com"]
-  spec.summary       = %q{ActiveRecord Association Helper for PORO}
-  spec.description   = %q{ActiveRecord Association Helper for PORO}
-  spec.homepage      = ""
+  spec.summary       = %q{ActiveRecord Association Helper for PORO (Plain Old Ruby Object)}
+  spec.description   = %q{ActiveRecord Association Helper for PORO (Plain Old Ruby Object)}
+  spec.homepage      = "https://github.com/joker1007/activemodel-associations"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
