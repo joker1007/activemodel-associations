@@ -132,8 +132,8 @@ describe ActiveModel::Associations do
         end
 
         describe "defined accessor" do
-          let(:user1) { User.create(name: "joker1007") }
-          let(:user2) { User.create(name: "kakyoin") }
+          let!(:user1) { User.create(name: "joker1007") }
+          let!(:user2) { User.create(name: "kakyoin") }
           let(:group) { Group.new(user_ids: [user1.id, user2.id]) }
 
           it "returns ActiveRecord CollectionProxy of target class" do
@@ -145,6 +145,21 @@ describe ActiveModel::Associations do
             group = Group.new
             expect(group.users).to be_empty
             group.users = [user1, user2]
+            expect(group.users).to eq [user1, user2]
+          end
+
+          it "replace target, and set target_ids attributes" do
+            expect(group.users).to eq [user1, user2]
+            group.users = [user1]
+            expect(group.users).to eq [user1]
+            group.users = []
+            expect(group.users).to be_empty
+          end
+
+          it "receives target ActiveRecord CollectionProxy, and set target_ids attributes" do
+            group = Group.new
+            expect(group.users).to be_empty
+            group.users = User.all
             expect(group.users).to eq [user1, user2]
           end
 
