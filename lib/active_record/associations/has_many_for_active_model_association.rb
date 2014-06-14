@@ -50,5 +50,14 @@ module ActiveRecord::Associations
 
       target
     end
+
+    private
+
+    def get_records
+      return scope.to_a if reflection.scope_chain.any?(&:any?)
+
+      target_ids = reflection.options[:target_ids]
+      klass.where(id: owner[target_ids]).to_a
+    end
   end
 end

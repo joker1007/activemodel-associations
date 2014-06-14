@@ -5,3 +5,4 @@ rvm:
 gemfile:
   - gemfiles/activerecord-40.gemfile
   - gemfiles/activerecord-41.gemfile
+  - gemfiles/activerecord-42.gemfile

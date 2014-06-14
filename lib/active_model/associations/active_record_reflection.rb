@@ -3,8 +3,13 @@ module ActiveModel::Associations
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :reflections
-      self.reflections = {}
+      if ActiveRecord.version.to_s >= "4.2"
+        class_attribute :_reflections
+        self._reflections = {}
+      else
+        class_attribute :reflections
+        self.reflections = {}
+      end
     end
 
     module ClassMethods
@@ -22,7 +27,11 @@ module ActiveModel::Associations
       end
 
       def reflect_on_association(association)
-        reflections[association]
+        if ActiveRecord.version.to_s >= "4.2"
+          _reflections[association.to_s]
+        else
+          reflections[association]
+        end
       end
     end
   end

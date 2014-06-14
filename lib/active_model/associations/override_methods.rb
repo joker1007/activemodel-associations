@@ -52,6 +52,10 @@ module ActiveModel::Associations
       association
     end
 
+    def read_attribute(name)
+      send(name)
+    end
+
     private
 
     # override

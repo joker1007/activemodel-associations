@@ -53,7 +53,7 @@ describe ActiveModel::Associations do
           end
 
           it "can validate" do
-            expect(comment.valid?).to be_true
+            expect(comment.valid?).to be_truthy
           end
         end
 
@@ -180,7 +180,7 @@ describe ActiveModel::Associations do
           end
 
           it "can validate" do
-            expect(group.valid?).to be_true
+            expect(group.valid?).to be_truthy
           end
         end
 
