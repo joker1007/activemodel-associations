@@ -3,9 +3,9 @@ module ActiveModel::Associations
     extend ActiveSupport::Concern
 
     included do
-      if ActiveRecord.version.to_s >= "4.2"
+      if ActiveRecord.version.to_s >= "4.1.2"
         class_attribute :_reflections
-        self._reflections = {}
+        self._reflections = ActiveSupport::HashWithIndifferentAccess.new
       else
         class_attribute :reflections
         self.reflections = {}
@@ -27,7 +27,7 @@ module ActiveModel::Associations
       end
 
       def reflect_on_association(association)
-        if ActiveRecord.version.to_s >= "4.2"
+        if ActiveRecord.version.to_s >= "4.1.2"
           _reflections[association.to_s]
         else
           reflections[association]

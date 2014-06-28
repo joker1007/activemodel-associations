@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem "activerecord", "~> 4.1.2"
+gem "activemodel", "~> 4.1.2"
+gem "activesupport", "~> 4.1.2"
+
+gemspec :path => "../"
