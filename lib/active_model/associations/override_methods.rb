@@ -23,7 +23,9 @@ module ActiveModel::Associations
         self.to_s.pluralize
       end
 
-      protected def compute_type(type_name)
+      protected
+
+      def compute_type(type_name)
         if type_name.match(/^::/)
           # If the type is prefixed with a scope operator then we assume that
           # the type_name is an absolute reference.
