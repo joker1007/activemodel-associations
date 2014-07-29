@@ -8,7 +8,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'activemodel-association'
+    gem 'activemodel-associations'
 
 And then execute:
 
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install activemodel-association
+    $ gem install activemodel-associations
 
 ## Usage
 
@@ -115,7 +115,7 @@ Support associations is only `belongs_to` and simple `has_many`
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/activemodel-association/fork )
+1. Fork it ( https://github.com/[my-github-username]/activemodel-associations/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
