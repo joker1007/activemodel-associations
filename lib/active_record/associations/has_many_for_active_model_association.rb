@@ -10,6 +10,15 @@ module ActiveRecord::Associations
       false
     end
 
+    # not support counter_cache
+    def empty?
+      if loaded?
+        size.zero?
+      else
+        @target.blank? && !scope.exists?
+      end
+    end
+
     # full replace simplely
     def replace(other_array)
       original_target = load_target.dup

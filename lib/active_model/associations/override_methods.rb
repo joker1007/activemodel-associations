@@ -2,17 +2,6 @@ module ActiveModel::Associations
   module OverrideMethods
     extend ActiveSupport::Concern
 
-    included do
-      # borrow method definition from ActiveRecord::Inheritance
-      # use in Rails internal
-      mod = Module.new do
-        unbound = ActiveRecord::Inheritance::ClassMethods.instance_method(:compute_type)
-        define_method(:compute_type, unbound)
-        protected :compute_type
-      end
-      extend mod
-    end
-
     module ClassMethods
       def generated_association_methods
         @generated_association_methods ||= begin
@@ -32,6 +21,32 @@ module ActiveModel::Associations
       # dummy table name
       def pluralize_table_names
         self.to_s.pluralize
+      end
+
+      protected def compute_type(type_name)
+        if type_name.match(/^::/)
+          # If the type is prefixed with a scope operator then we assume that
+          # the type_name is an absolute reference.
+          ActiveSupport::Dependencies.constantize(type_name)
+        else
+          # Build a list of candidates to search for
+          candidates = []
+          name.scan(/::|$/) { candidates.unshift "#{$`}::#{type_name}" }
+          candidates << type_name
+
+          candidates.each do |candidate|
+            begin
+              constant = ActiveSupport::Dependencies.constantize(candidate)
+              return constant if candidate == constant.to_s
+              # We don't want to swallow NoMethodError < NameError errors
+            rescue NoMethodError
+              raise
+            rescue NameError
+            end
+          end
+
+          raise NameError.new("uninitialized constant #{candidates.first}", candidates.first)
+        end
       end
     end
 
