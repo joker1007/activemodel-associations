@@ -73,6 +73,11 @@ module ActiveModel::Associations
       send(name)
     end
 
+    # dummy
+    def new_record?
+      false
+    end
+
     private
 
     # override
