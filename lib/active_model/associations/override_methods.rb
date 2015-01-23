@@ -72,6 +72,7 @@ module ActiveModel::Associations
     def read_attribute(name)
       send(name)
     end
+    alias :_read_attribute :read_attribute
 
     # dummy
     def new_record?

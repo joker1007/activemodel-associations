@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gem "activerecord", github: "rails/rails", branch: 'master'
+gem "arel", github: "rails/arel", branch: 'master'
+gem "activemodel", github: "rails/rails", branch: 'master'
+gem "activesupport", github: "rails/rails", branch: 'master'
+gem 'i18n', github: 'svenfuchs/i18n', branch: 'master'
+
+gemspec :path => "../"
