@@ -1,6 +1,8 @@
 # Activemodel::Associations
+[![Gem Version](https://badge.fury.io/rb/activemodel-associations.svg)](http://badge.fury.io/rb/activemodel-associations)
 [![Build Status](https://travis-ci.org/joker1007/activemodel-associations.svg?branch=master)](https://travis-ci.org/joker1007/activemodel-associations)
 [![Coverage Status](https://coveralls.io/repos/joker1007/activemodel-associations/badge.png)](https://coveralls.io/r/joker1007/activemodel-associations)
+[![Code Climate](https://codeclimate.com/github/joker1007/activemodel-associations/badges/gpa.svg)](https://codeclimate.com/github/joker1007/activemodel-associations)
 
 `has_many` and `belongs_to` macro for Plain Ruby Object.
 
@@ -17,6 +19,11 @@ And then execute:
 Or install it yourself as:
 
     $ gem install activemodel-associations
+
+## Support
+- activerecord-4.0.x
+- activerecord-4.1.x
+- activerecord-4.2.x
 
 ## Usage
 
