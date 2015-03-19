@@ -19,6 +19,30 @@ describe ActiveModel::Associations do
       end
     end
 
+    class PostBase
+      extend ActiveModel::Naming
+      extend ActiveModel::Callbacks
+      include ActiveModel::Model
+      include ActiveModel::Associations
+      include ActiveModel::Conversion
+      include ActiveModel::Dirty
+      include ActiveModel::Validations
+
+      attr_accessor :user_id
+
+      def [](attr)
+        self.send(attr)
+      end
+
+      def []=(attr, value)
+        self.send("#{attr}=", value)
+      end
+    end
+
+    class Post < PostBase
+      belongs_to :user
+    end
+
     it "extends constructor" do
       comment = Comment.new(body: "foo")
       expect(comment.body).to eq "foo"
@@ -41,9 +65,11 @@ describe ActiveModel::Associations do
         describe "defined accessor" do
           let(:user) { User.create(name: "joker1007") }
           let(:comment) { Comment.new(user_id: user.id) }
+          let(:post) { Post.new(user_id: user.id) }
 
           it "defined accessor loads target ActiveRecord instance" do
             expect(comment.user).to eq user
+            expect(post.user).to eq user
           end
 
           it "receives target ActiveRecord instance, and set foreign_key attributes" do
