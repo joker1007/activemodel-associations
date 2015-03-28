@@ -11,7 +11,7 @@ module ActiveModel::Associations
         end
       end
       alias :generated_feature_methods :generated_association_methods \
-        if ActiveRecord.version.to_s < "4.1"
+        if ActiveRecord.version < Gem::Version.new("4.1")
 
       # override
       def dangerous_attribute_method?(name)

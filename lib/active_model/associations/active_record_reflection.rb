@@ -3,7 +3,7 @@ module ActiveModel::Associations
     extend ActiveSupport::Concern
 
     included do
-      if ActiveRecord.version.to_s >= "4.1.2"
+      if ActiveRecord.version >= Gem::Version.new("4.1.2")
         class_attribute :_reflections
         self._reflections = ActiveSupport::HashWithIndifferentAccess.new
       else
@@ -13,7 +13,7 @@ module ActiveModel::Associations
     end
 
     module ClassMethods
-      if ActiveRecord.version.to_s < "4.1"
+      if ActiveRecord.version < Gem::Version.new("4.1")
         def create_reflection(macro, name, scope, options, active_record)
           case macro
           when :has_many, :belongs_to
@@ -27,7 +27,7 @@ module ActiveModel::Associations
       end
 
       def reflect_on_association(association)
-        if ActiveRecord.version.to_s >= "4.1.2"
+        if ActiveRecord.version >= Gem::Version.new("4.1.2")
           _reflections[association.to_s]
         else
           reflections[association]

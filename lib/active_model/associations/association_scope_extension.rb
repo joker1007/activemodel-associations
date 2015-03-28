@@ -1,6 +1,6 @@
 module ActiveModel::Associations
   module AssociationScopeExtension
-    if ActiveRecord.version.to_s < "4.1"
+    if ActiveRecord.version < Gem::Version.new("4.1")
       def add_constraints(scope)
         if reflection.options[:active_model]
           target_ids = reflection.options[:target_ids]

@@ -18,7 +18,7 @@ module ActiveModel
       # define association like ActiveRecord
       def belongs_to(name, scope = nil, options = {})
         reflection = ActiveRecord::Associations::Builder::BelongsTo.build(self, name, scope, options)
-        if ActiveRecord.version.to_s >= "4.1"
+        if ActiveRecord.version >= Gem::Version.new("4.1")
           ActiveRecord::Reflection.add_reflection self, name, reflection
         end
       end
@@ -32,7 +32,7 @@ module ActiveModel
         end
 
         reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
-        if ActiveRecord.version.to_s >= "4.1"
+        if ActiveRecord.version >= Gem::Version.new("4.1")
           ActiveRecord::Reflection.add_reflection self, name, reflection
         end
 
