@@ -20,6 +20,9 @@ Or install it yourself as:
 
     $ gem install activemodel-associations
 
+## Requirements
+- Ruby-2.0.0 or later
+
 ## Support
 - activerecord-4.0.x
 - activerecord-4.1.x
