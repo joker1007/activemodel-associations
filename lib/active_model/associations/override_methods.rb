@@ -23,6 +23,14 @@ module ActiveModel::Associations
         self.to_s.pluralize
       end
 
+      def clear_reflections_cache
+        @__reflections = nil
+      end
+
+      def default_scopes
+        []
+      end
+
       protected
 
       def compute_type(type_name)
