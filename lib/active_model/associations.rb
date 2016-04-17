@@ -18,9 +18,7 @@ module ActiveModel
       # define association like ActiveRecord
       def belongs_to(name, scope = nil, options = {})
         reflection = ActiveRecord::Associations::Builder::BelongsTo.build(self, name, scope, options)
-        if ActiveRecord.version >= Gem::Version.new("4.1")
-          ActiveRecord::Reflection.add_reflection self, name, reflection
-        end
+        ActiveRecord::Reflection.add_reflection self, name, reflection
       end
 
       # define association like ActiveRecord
@@ -32,9 +30,7 @@ module ActiveModel
         end
 
         reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
-        if ActiveRecord.version >= Gem::Version.new("4.1")
-          ActiveRecord::Reflection.add_reflection self, name, reflection
-        end
+        ActiveRecord::Reflection.add_reflection self, name, reflection
 
         mixin = generated_association_methods
         mixin.class_eval <<-CODE, __FILE__, __LINE__ + 1
