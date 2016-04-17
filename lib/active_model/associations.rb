@@ -4,6 +4,7 @@ require 'active_model/associations/autosave_association'
 require 'active_model/associations/override_methods'
 require 'active_record/associations/builder/has_many_for_active_model'
 require 'active_record/associations/has_many_for_active_model_association'
+require 'active_support/core_ext/module'
 
 module ActiveModel
   module Associations
@@ -13,6 +14,10 @@ module ActiveModel
     include AutosaveAssociation
     include ActiveRecordReflection
     include OverrideMethods
+
+    included do
+      mattr_accessor :belongs_to_required_by_default, instance_accessor: false
+    end
 
     module ClassMethods
       # define association like ActiveRecord
