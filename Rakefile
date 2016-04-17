@@ -6,17 +6,19 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 namespace :spec do
-  %w(activerecord-40 activerecord-41 activerecord-412 activerecord-42 activerecord-master).each do |gemfile|
+  %w(activerecord-41 activerecord-412 activerecord-42 activerecord-50 activerecord-master).each do |gemfile|
     desc "Run Tests by #{gemfile}.gemfile"
     task gemfile do
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle install --path .bundle"
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle exec rake -t spec"
+      Bundler.with_clean_env do
+        sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle install --path .bundle"
+        sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle exec rake -t spec"
+      end
     end
   end
 
   desc "Run All Tests"
   task :all do
-    %w(activerecord-40 activerecord-41 activerecord-412 activerecord-42 activerecord-master).each do |gemfile|
+    %w(activerecord-41 activerecord-412 activerecord-42 activerecord-50 activerecord-master).each do |gemfile|
       Rake::Task["spec:#{gemfile}"].invoke
     end
   end
