@@ -2,8 +2,7 @@ language: ruby
 sudo: false
 rvm:
   - 2.3.0
-  - 2.2
-  - 2.1
+  - 2.2.4
 gemfile:
   - gemfiles/activerecord-41.gemfile
   - gemfiles/activerecord-412.gemfile
@@ -11,8 +10,5 @@ gemfile:
   - gemfiles/activerecord-50.gemfile
   - gemfiles/activerecord-master.gemfile
 matrix:
-  exclude:
-    - rvm: 2.1
-      gemfile: gemfiles/activerecord-master.gemfile
   allow_failures:
     - gemfile: gemfiles/activerecord-master.gemfile
