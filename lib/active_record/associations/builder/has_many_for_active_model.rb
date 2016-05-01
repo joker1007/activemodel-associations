@@ -1,7 +1,5 @@
 module ActiveRecord::Associations::Builder
   class HasManyForActiveModel < HasMany
-    p ActiveRecord.version
-    p ActiveRecord.version >= Gem::Version.new("5.0.0.beta")
     if ActiveRecord.version >= Gem::Version.new("5.0.0.beta")
       AR_CALLBACK_METHODS = %i(define_callback before_validation after_validation before_save after_save before_update after_update)
 
