@@ -1,4 +1,4 @@
-# Activemodel::Associations
+# ActiveModel::Associations
 [![Gem Version](https://badge.fury.io/rb/activemodel-associations.svg)](http://badge.fury.io/rb/activemodel-associations)
 [![Build Status](https://travis-ci.org/joker1007/activemodel-associations.svg?branch=master)](https://travis-ci.org/joker1007/activemodel-associations)
 [![Coverage Status](https://coveralls.io/repos/joker1007/activemodel-associations/badge.png)](https://coveralls.io/r/joker1007/activemodel-associations)
@@ -27,6 +27,7 @@ Or install it yourself as:
 - activerecord-4.0.x
 - activerecord-4.1.x
 - activerecord-4.2.x
+- activerecord-5.0.x
 
 ## Usage
 
@@ -125,7 +126,7 @@ Support associations is only `belongs_to` and simple `has_many`
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/activemodel-associations/fork )
+1. Fork it ( https://github.com/joker1007/activemodel-associations/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
