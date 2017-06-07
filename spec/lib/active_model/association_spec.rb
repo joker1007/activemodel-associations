@@ -132,9 +132,9 @@ describe ActiveModel::Associations do
         include ActiveModel::Associations
 
         attr_accessor :name
-        attr_reader :user_ids
+        attr_reader :id, :user_ids
 
-        has_many :users
+        has_many :users, primary_key: "id"
 
         def [](attr)
           self.send(attr)
@@ -234,8 +234,8 @@ describe ActiveModel::Associations do
 
         it "can define different class_name association" do
           class DiffClassNameHasManyGroup < Group
-            attr_reader :member_ids
-            has_many :members, class_name: "User"
+            attr_reader :id, :member_ids
+            has_many :members, class_name: "User", primary_key: "id"
           end
 
           user = User.create(name: "joker1007")
