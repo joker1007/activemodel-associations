@@ -8,6 +8,7 @@ gemfile:
   - gemfiles/activerecord-412.gemfile
   - gemfiles/activerecord-42.gemfile
   - gemfiles/activerecord-50.gemfile
+  - gemfiles/activerecord-51.gemfile
   - gemfiles/activerecord-master.gemfile
 matrix:
   allow_failures:

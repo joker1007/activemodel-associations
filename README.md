@@ -28,6 +28,7 @@ Or install it yourself as:
 - activerecord-4.1.x
 - activerecord-4.2.x
 - activerecord-5.0.x
+- activerecord-5.1.x
 
 ## Usage
 
@@ -128,6 +129,7 @@ Support associations is only `belongs_to` and simple `has_many`
 
 1. Fork it ( https://github.com/joker1007/activemodel-associations/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+3. Run tests with `rake spec:all`
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create a new Pull Request

@@ -21,12 +21,13 @@ module ActiveRecord::Associations
 
     # full replace simplely
     def replace(other_array)
-      original_target = load_target.dup
       other_array.each { |val| raise_on_type_mismatch!(val) }
       target_ids = reflection.options[:target_ids]
       owner[target_ids] = other_array.map(&:id)
 
-      old_records = original_target - other_array
+      load_target
+
+      old_records = target - other_array
       old_records.each do |record|
         @target.delete(record)
       end
