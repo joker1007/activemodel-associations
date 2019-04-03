@@ -1,6 +1,17 @@
 module ActiveModel::Associations
   module AssociationScopeExtension
-    if ActiveRecord.version >= Gem::Version.new("5.1.0")
+    if ActiveRecord.version >= Gem::Version.new("5.2.0")
+      def add_constraints(scope, owner, chain)
+        chain_head = chain.first
+        refl = chain_head.instance_variable_get(:@reflection)
+        if refl.options[:active_model]
+          target_ids = refl.options[:target_ids]
+          return scope.where(id: owner[target_ids])
+        end
+
+        super
+      end
+    elsif ActiveRecord.version >= Gem::Version.new("5.1.0")
       def add_constraints(scope, owner, refl, chain_head, chain_tail)
         if refl.options[:active_model]
           target_ids = refl.options[:target_ids]
