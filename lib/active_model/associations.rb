@@ -21,19 +21,14 @@ module ActiveModel
 
     module ClassMethods
       # define association like ActiveRecord
-      def belongs_to(name, scope = nil, options = {})
+      def belongs_to(name, scope = nil, **options)
         reflection = ActiveRecord::Associations::Builder::BelongsTo.build(self, name, scope, options)
         ActiveRecord::Reflection.add_reflection self, name, reflection
       end
 
       # define association like ActiveRecord
-      def has_many(name, scope = nil, options = {}, &extension)
+      def has_many(name, scope = nil, **options, &extension)
         options.reverse_merge!(active_model: true, target_ids: "#{name.to_s.singularize}_ids")
-        if scope.is_a?(Hash)
-          options.merge!(scope)
-          scope = nil
-        end
-
         reflection = ActiveRecord::Associations::Builder::HasManyForActiveModel.build(self, name, scope, options, &extension)
         ActiveRecord::Reflection.add_reflection self, name, reflection
 
